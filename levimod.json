@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "id": "bedrocktoolsplus",
-  "version": "1.5.3",
+  "version": "1.5.5",
   "minecraft_versions": [
-    "1.26.50.4"
+    "1.26.5X.X"
   ],
   "info": {
     "name": "BedrockToolsPlus",
-    "author": "VENOM P2 GM",
-    "description": "A collection of utility, HUD, player, and visual modules for Minecraft Bedrock.",
-    "homepage_url": "https://github.com/abdullahshoieb90-source/BedrockToolsPlus-",
-    "icon": "assets/bedrocktoolsplus.png",
+    "author": "hater12132-ai",
+    "description": "BedrockTools + Plus modules with Minecraft 1.26.50/1.26.51 support.",
+    "homepage_url": "https://github.com/hater12132-ai/BedrockToolsPlus-",
+    "icon": "assets/bedrocktools.png",
     "tags": [
       "Utility",
       "HUD",

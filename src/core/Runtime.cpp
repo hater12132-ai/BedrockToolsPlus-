@@ -1,7 +1,6 @@
 #include "Runtime.hpp"
 #include "GameHooks.hpp"
 #include "config/ConfigManager.hpp"
-#include "launcher/ExternalButtonRefresh.hpp"
 #include "launcher/ModuleMenu.hpp"
 #include "modules/ModuleRegistry.hpp"
 #include "core/memory/Hooks.hpp"
@@ -99,8 +98,6 @@ void Runtime::wireEvents() {
         return ModuleRegistry::get().onKeyEvent(input.keyCode, input.isKeyDown);
     });
     pl::input::registerTouchCallback([](const pl::input::TouchEvent& input) {
-        // Android MotionEvent actions: 0 = DOWN, 1 = UP, 3 = CANCEL.
-        // Move/pointer-shift events are ignored; modules only track press state.
         if (input.action != 0 && input.action != 1 && input.action != 3) return false;
         const bool isDown = input.action == 0;
         return ModuleRegistry::get().onTouchEvent(input.x, input.y, isDown);
@@ -127,7 +124,6 @@ void Runtime::minecraftLoaded() {
 }
 
 bool Runtime::load(pl::mod::ModContext& context) {
-    bedrocktools::launcher::setJavaVm(context.javaVm());
     mResourceDirectory = context.resourceDir();
     bedrocktools::config::ConfigManager::get().setConfigPath((context.configDir() / "config.json").string());
     if (!launcherContext()) return true;

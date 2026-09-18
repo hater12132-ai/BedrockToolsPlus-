@@ -1,10 +1,10 @@
 #include "core/Runtime.hpp"
 #include <pl/Mod.hpp>
 
-class BedrockToolsPlusMod {
+class BedrockToolsMod {
 public:
-    static BedrockToolsPlusMod& instance() {
-        static BedrockToolsPlusMod mod;
+    static BedrockToolsMod& instance() {
+        static BedrockToolsMod mod;
         return mod;
     }
 
@@ -14,4 +14,4 @@ public:
     bool unload(pl::mod::ModContext& context) { return bedrocktools::core::Runtime::get().unload(context); }
 };
 
-PL_REGISTER_MOD(BedrockToolsPlusMod, BedrockToolsPlusMod::instance())
+PL_REGISTER_MOD(BedrockToolsMod, BedrockToolsMod::instance())
