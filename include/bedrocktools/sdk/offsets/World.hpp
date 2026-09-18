@@ -109,6 +109,10 @@ namespace UniqueOwnerPointer {
 inline constexpr std::size_t mValue = sizeof(std::uintptr_t);
 }
 
+namespace GameMode {
+inline constexpr std::size_t mDestroyProgress = 0x24;
+}
+
 namespace HitResult {
 inline constexpr std::size_t mStartPos = 0;
 inline constexpr std::size_t mRayDir = 12;

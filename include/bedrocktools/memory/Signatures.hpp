@@ -94,7 +94,6 @@ enum class SignatureId : std::uint16_t {
     LocalPlayerChangeDimension,
     NbtTreeFind,
     ItemStackBaseLoadItem,
-    RenderPotionEffects,
     ItemStackBaseGetDamageValue,
     ItemStackBaseGetRawNameId,
     BaseActorRenderContextCtor,
@@ -133,6 +132,7 @@ enum class SignatureId : std::uint16_t {
     MobGetModifiedSwingDuration,
     ContainerScreenControllerHandleAutoPlace,
     ActorGetOffhandSlot,
+    RenderPotionEffects,
     Count
 };
 

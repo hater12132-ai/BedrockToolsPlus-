@@ -1,8 +1,8 @@
 #include "ConfigManager.hpp"
 #include "modules/ModuleRegistry.hpp"
+#include "modules/hud/armorhud.hpp"
 #include <filesystem>
 #include <fstream>
-#include <string_view>
 
 namespace bedrocktools::config {
 
@@ -21,7 +21,7 @@ std::string ConfigManager::getConfigPath() const {
         std::lock_guard<std::mutex> lock(m_mutex);
         if (!m_configPath.empty()) return m_configPath;
     }
-    return "/sdcard/games/BedrockTools/config.json";
+    return "/sdcard/games/BedrockToolsPlus/config.json";
 }
 
 void ConfigManager::setConfigPath(const std::string& path) {
@@ -44,12 +44,14 @@ void ConfigManager::load() {
 
         if (j.contains("Modules")) {
             auto& modulesObj = j["Modules"];
+            // Armor & offhand used to be an option of Inventory HUD. A config
+            // written before the split has no "Armor" section yet, so it is
+            // derived from the old one and the setup survives the upgrade.
+            if (!modulesObj.contains("Armor") && modulesObj.contains("Inventory HUD")) {
+                modulesObj["Armor"] = ArmorModule::migratedFromInventoryHud(modulesObj["Inventory HUD"]);
+            }
             for (auto* mod : ModuleRegistry::get().modules()) {
-                if (modulesObj.contains(mod->name)) {
-                    mod->loadConfig(modulesObj[mod->name]);
-                } else if (std::string_view(mod->name) == "Hive Utils" && modulesObj.contains("AutoReQ")) {
-                    mod->loadConfig(modulesObj["AutoReQ"]);
-                }
+                if (modulesObj.contains(mod->name)) mod->loadConfig(modulesObj[mod->name]);
             }
         }
     } catch (...) {
